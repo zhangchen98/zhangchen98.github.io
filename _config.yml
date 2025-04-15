@@ -1,0 +1,10 @@
+title: Zhang Chen's Homepage
+description: Personal academic homepage of Zhang Chen
+baseurl: "" # 如果是自定义域名或 username.github.io 就留空
+url: "https://zhangchen98.github.io"
+theme: minima
+
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
