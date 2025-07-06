@@ -1,4 +1,196 @@
----
-layout: layout
----
-  
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Chen Zhang's Homepage</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@700;1,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; font-family: 'Georgia', sans-serif; box-sizing: border-box; }
+    body { 
+      background: #f9f9f9; 
+      color: #333; 
+      padding: 40px 20px; 
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* 导航栏样式 */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000000;
+      text-decoration: none;
+      padding-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    nav a.active {
+      color: #01497c;
+      border-bottom: 2px solid #01497c;
+    }
+
+    nav a:hover {
+      color: #01497c;
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    .avatar { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin: 20px auto; display: block; }
+    h1 { font-size: 32px; margin-bottom: 10px; text-align: center; }
+    .subtitle { font-size: 20px; color: #000000; margin-bottom: 30px; text-align: center; }
+
+    
+    /* News Section */
+    .news-section {
+      background: #eff4f7;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .news-section h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .news-item {
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .news-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .news-item-date {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8B0000; /* 暗红色 */
+      min-width: 80px;
+      padding-left: 15px;
+    }
+    .news-item-content {
+      color: #000000;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    /* 滚动条美化 */
+    .news-section::-webkit-scrollbar {
+      width: 6px;
+    }
+    .news-section::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 3px;
+    }
+    .news-section::-webkit-scrollbar-thumb:hover {
+      background-color: #999;
+    }
+    .news_logo_inline {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .news-section h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="publications.html">Publications</a>
+  </nav>
+  <br><br>
+  <img src="assets/images/photo.JPG" alt="me" class="avatar">
+  <br>
+  <h1>Chen Zhang (张晨)</h1>
+  <br>
+  <div class="subtitle">Ph.D. Student @ Shandong University</div>
+
+
+  <br>
+  <!-- News Section -->
+  <div class="news-section">
+    <h2>
+      <img src="assets/images/news.gif" alt="logo" class="news_logo_inline">
+      <i>News</i>
+    </h2>
+    
+    <div class="news-item">
+      <div class="news-item-date">🏫  [2025/07]</div>
+      <div class="news-item-content">I join Shandong University as a Ph.D. student.</div>
+    </div>
+    <div class="news-item">
+      <div class="news-item-date">🏆  [2024/08]</div>
+      <div class="news-item-content"> I receive the Excellent Master Dissertation Award of China Graphics Society.</div>
+    </div>
+    <div class="news-item">
+      <div class="news-item-date">📃  [2024/07]</div>
+      <div class="news-item-content">One paper has been accepted to ACM MM 2024!</div>
+    </div>
+    <div class="news-item">
+      <div class="news-item-date">📃  [2024/02]</div>
+      <div class="news-item-content">One paper has been accepted to CVPR 2024!</div>
+    </div>
+    <div class="news-item">
+      <div class="news-item-date">🏆  [2023/08]</div>
+      <div class="news-item-content"> I receive the Excellent Master Dissertation Award of BSIG.</div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-item-date">📃  [2023/07]</div>
+      <div class="news-item-content">One paper has been accepted to ACM MM 2023!</div>
+    </div>
+    <div class="news-item">
+      <div class="news-item-date">🏢  [2022/07]</div>
+      <div class="news-item-content">I start working at SenseTime as a Computer Vision Engineer.</div>
+    </div>
+  </div>
+
+</body>
+</html>

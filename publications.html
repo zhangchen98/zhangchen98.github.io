@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Chen Zhang's Publications</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      box-sizing: border-box;
+    }
+    body { background: #f9f9f9; color: #333; padding: 40px 20px; }
+
+    
+    /* 导航栏样式 */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    nav a {
+      margin: 0 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000000;
+      text-decoration: none;
+      padding-bottom: 5px;
+      transition: color 0.3s;
+    }
+
+    nav a.active {
+      color: #01497c;
+      border-bottom: 2px solid #01497c;
+    }
+
+    nav a:hover {
+      color: #01497c;
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 26px;
+      margin: 40px 0 20px;
+      padding-bottom: 5px;
+      color: #000000;
+      font-family: 'Georgia', serif;
+      border-bottom: 2px solid #01497c;  /* 保留 Selected Papers 的蓝色横线 */
+    }
+    .paper-note {
+      font-size: 17px;  /* 或你希望的大小，比如12px、16px等 */
+      color: #8B0000;      /* 可选：设置字体颜色 */
+      font-weight: bold;
+    }
+    .category-section {
+      margin-bottom: 40px;
+    }
+
+    .category-section h3 {
+      font-size: 18px;  /* 小标题字体调小 */
+      color: #000000;
+      margin-bottom: 15px;
+    }
+    .paper-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+
+    .paper-thumb {
+      width: 120px;
+      height: 100px;
+      object-fit: contain;       /* 保持图像原比例，完整显示 */
+      object-position: center;   /* 居中放置 */
+      border-radius: 6px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+      background-color: #fff;    /* 可选：填充空白区域更美观 */
+      /* border: 2px solid #918e8e; */
+    }
+    /* 正文部分字体更改为 Segoe UI */
+    .paper-list {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      max-height: 400px;
+      overflow-y: auto;
+      font-size: 18px; /* 调整字体大小 */
+      line-height: 1.6;
+    }
+
+    .paper-list ul {
+    padding-left: 10;
+    margin-bottom: 0;
+    list-style: none; 
+    }
+    .paper-list ol {
+      padding-left: 25px;
+      margin-bottom: 0;
+      
+    }
+
+    .paper-list ol li {
+      margin-bottom: 15px;
+      color: #000000;
+    }
+
+    .paper-list ol li p {
+      margin: 0;
+      font-size: 18px; /* 确保字体一致 */
+      line-height: 1.8; /* 改善行距 */
+    }
+
+    .paper-list a {
+      color: #01497c;
+      text-decoration: none;
+    }
+    .paper-list a:hover {
+      text-decoration: underline;
+    }
+
+    /* 滚动条样式 */
+    .paper-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    .paper-list::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+    .paper-list::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="profile.html">Profile</a>
+  <a href="publications.html" class="active">Publications</a>
+</nav>
+
+<div class="container">
+  <h2 class="section-title">Papers</h2>
+  <span class="paper-note">(†equal contribution, *corresponding author)</span><br><br><br>
+
+  <!-- Deep Learning & Computer Vision -->
+  <div class="category-section">
+    <h3>Low-Level and Computational Photography </h3>
+    
+    <div class="paper-list">
+      <ul>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2024_MM.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>Prior Metadata-Driven RAW Reconstruction: Eliminating the Need for Per-Image Metadata</strong><br>
+          Wencheng Han†, <strong>Chen Zhang†</strong>, Yang Zhou, Wentao Liu, Chen Qian, Chengzhong Xu, Jianbing Shen*<br>
+          ACM International Conference on Multimedia (<strong>ACM MM, 2024</strong>)</p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2024_CVPR.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>Leveraging Frame Affinity for sRGB-to-RAW Video De-rendering</strong><br>
+          <strong>Chen Zhang†</strong>, Wencheng Han†, Yang Zhou, Jianbing Shen*, Chengzhong Xu, Wentao Liu*<br>
+          IEEE/CVF Conference on Computer Vision and Pattern Recognition (<strong>CVPR, 2024</strong>)
+          <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhang_Leveraging_Frame_Affinity_for_sRGB-to-RAW_Video_De-rendering_CVPR_2024_paper.pdf">[Paper]</a>
+          <a href="https://github.com/zhangchen98/RAW_CVPR24">[Code]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2020_信号处理.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>深度学习驱动的水下图像增强与复原研究进展</strong><br>
+            丛润民, 张禹墨, <strong>张晨</strong>, 李重仪, 赵耀<br>
+            信号处理 (2020, <span style="color:#8B0000;"><strong>2020-2022年度优秀论文, 2020年仅2篇, 2/231=0.87%</strong></span>)
+            <a href="https://arxiv.org/abs/2301.01661">[Paper]</a></p>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Salient Object Detection -->
+  <div class="category-section">
+    <h3>Salient Object Detection</h3>
+    <div class="paper-list">
+      <ul>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2023_MM.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>Point-aware Interaction and CNN-induced Refinement Network for RGB-D Salient Object Detection</strong><br>
+          Runmin Cong, Hongyu Liu, <strong>Chen Zhang*</strong>, Wei Zhang, Feng Zheng, Ran Song, and Sam Kwong<br>
+          ACM International Conference on Multimedia (<strong>ACM MM, 2023, <span style="color:#8B0000;">Oral</span></strong>)
+          <a href="https://dl.acm.org/doi/abs/10.1145/3581783.3611982">[Paper]</a>
+          <a href="https://arxiv.org/pdf/2308.08930">[Arxiv]</a>
+          <a href="https://github.com/rmcong/PICR-Net_ACMMM23">[Code]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2022_软件学报.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>深度学习时代下的 RGB-D 显著性目标检测研究进展</strong><br>
+          丛润民, <strong>张晨</strong>, 徐迈*, 刘鸿羽, 赵耀<br>
+          软件学报 (<strong>2022</strong>)
+          <a href="https://www.jos.org.cn/josen/article/pdf/6700">[Paper]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2022_TCSVT.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>A Weakly Supervised Learning Framework for Salient Object Detection via Hybrid Labels</strong><br>
+          Runmin Cong, Qi Qin, <strong>Chen Zhang*</strong>, Qiuping Jiang, Hua Li, Yao Zhao, Sam Kwong<br>
+          IEEE Transactions on Circuits and Systems for Video Technology (<strong>TCSVT, 2022, <span style="color:#8B0000;">ESI Highly Cited Paper</span></strong>)
+          <a href="https://ieeexplore.ieee.org/abstract/document/9881551">[Paper]</a>
+          <a href="https://arxiv.org/pdf/2209.02957.pdf">[Arxiv]</a>  
+          <a href="https://github.com/rmcong/Hybrid-Label-SOD_TCSVT2022">[Code]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2022_TIP.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>CIR-Net: Cross-modality Interaction and Refinement Network for RGB-D Salient Object Detection</strong><br>
+          Runmin Cong, Qinwei Lin, <strong>Chen Zhang*</strong>, Chongyi Li*, Yao Zhao, Qingming Huang, Sam Kwong<br>
+          IEEE Transactions on Image Processing (<strong>TIP, 2022, <span style="color:#8B0000;">ESI Highly Cited Paper</span></strong>)
+          <a href="https://ieeexplore.ieee.org/abstract/document/9930882/">[Paper]</a>
+          <a href="https://arxiv.org/pdf/2210.02843">[Arxiv]</a>
+          <a href="https://github.com/rmcong/CIRNet_TIP2022">[Code]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2022_TMM.png" alt="paper thumbnail" class="paper-thumb">
+          <p><strong>Does Thermal Really Always Matter for RGB-T Salient Object Detection?</strong><br>
+          Runmin Cong, Kepu Zhang, <strong>Chen Zhang</strong>, Feng Zheng, Yao Zhao, Qingming Huang, Sam Kwong<br>
+          IEEE Transactions on Multimedia (<strong>TMM, 2022, <span style="color:#8B0000;">ESI Highly Cited Paper</span></strong>)
+          <a href="https://ieeexplore.ieee.org/abstract/document/9926193">[Paper]</a>
+          <a href="https://arxiv.org/pdf/2210.04266">[Arxiv]</a>
+          <a href="https://github.com/rmcong/TNet_TMM2022">[Code]</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2021_MTAP.png" alt="paper thumbnail" class="paper-thumb">
+            <p><strong>A Benchmark Dataset and Baseline Model for Co-salient Object Detection within RGB-D Images</strong><br>
+            Ning Yang, <strong>Chen Zhang</strong>, Yumo Zhang, Haowei Yang, Ling Du*<br>
+            Multimedia Tools and Applications (<strong>MTAP, 2022</strong>)
+            <a href="https://link.springer.com/article/10.1007/s11042-021-11555-y">[Paper]</a></p>
+          
+          </div>
+        </li>
+        <li>
+          <div class="paper-item">
+          <img src="assets/images/papers/2021_PRCV_GCRNet.png" alt="paper thumbnail" class="paper-thumb">
+            <p><strong>GGRNet: Global Graph Reasoning Network for Salient Object Detection in Optical Remote Sensing Images</strong><br>
+            Xuan Liu, Yumo Zhang, Runmin Cong*, <strong>Chen Zhang</strong>, Ning Yang, Chunjie Zhang, Yao Zhao<br>
+            Chinese Conference on Pattern Recognition and Computer Vision (<strong>PRCV, 2021</strong>)
+            <a href="https://link.springer.com/chapter/10.1007/978-3-030-88007-1_48">[Paper]</a>
+          </p>
+          </div>
+        </li>
+        
+        <li>
+          <div class="paper-item">
+            <img src="assets/images/papers/2021_MM_CDINet.png" alt="paper thumbnail" class="paper-thumb">
+            <p><strong>Cross-Modality Discrepant Interaction Network for RGB-D Salient Object Detection</strong><br>
+            <strong>Chen Zhang</strong>, Runmin Cong*, Qinwei Lin, Lin Ma, Feng Li, Yao Zhao, Sam Kwong<br>
+            ACM International Conference on Multimedia (<strong>ACM MM, 2021, <span style="color:#8B0000;">Valse 2021 Spotlight</span></strong>)
+            <a href="https://dl.acm.org/doi/abs/10.1145/3474085.3475364">[Paper]</a>
+            <a href="https://arxiv.org/pdf/2108.01971.pdf">[ArXiv]</a>
+            <a href="https://github.com/zhangchen98/CDINet-ACM-MM21">[Code]</a>
+          </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Thermal & Multimodal Fusion -->
+  <!-- <div class="category-section">
+    <h3>Thermal & Multimodal Fusion</h3>
+    <div class="paper-list">
+      <ul>
+
+      </ul>
+    </div>
+  </div> -->
+  <h2 class="section-title">Patents</h2>
+  <div class="category-section">
+    <div class="paper-list">
+      <ol>
+        <li>
+          <p>
+            <strong>一种协同显著性目标检测方法</strong><br>
+            丛润民, <b>张晨</b>, 杨宁, 张禹墨, 杨浩巍, 赵耀<br>
+            授权公告号: CN112348033B
+            <a href="https://patents.google.com/patent/CN112348033B/zh">[Link]</a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>一种RGB-D图像显著性目标检测方法</strong><br>
+            丛润民, 杨宁, <b>张晨</b>, 张禹墨, 赵耀<br>
+            授权公告号: CN113763422B
+            <a href="https://patents.google.com/patent/CN113763422B/zh">[Link]</a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>一种光学遥感图像显著性目标检测方法</strong><br>
+            丛润民, 张禹墨, 杨宁, <b>张晨</b>, 杨浩巍, 赵耀<br>
+            授权公告号: CN112347859A
+            <a href="https://patents.google.com/patent/CN112347859A/zh">[Link]</a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>基于跨模态交互和修正的rgb-d图像显著性目标检测方法</strong><br>
+            丛润民, 刘鸿羽, <b>张晨</b>, 林秦伟, 赵耀<br>
+            授权公告号: CN115170830A
+            <a href="https://patents.example.com/CN115170830A">[Link]</a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>一种联合单目深度估计的深度图像超分辨率重建方法</strong><br>
+            丛润民, 唐麒, 盛荣晖, <b>张晨</b>, 何凌志, 赵耀<br>
+            申请号: 202110803976.2
+          </p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
