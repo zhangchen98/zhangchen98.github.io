@@ -81,7 +81,7 @@
     }
     .paper-item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;  /* 改成居中 */
       gap: 15px;
       margin-bottom: 20px;
       padding-left: 20px;
@@ -92,10 +92,14 @@
       height: 100px;
       object-fit: contain;       /* 保持图像原比例，完整显示 */
       object-position: center;   /* 居中放置 */
-      border-radius: 6px;
+      /* 去掉装饰 */
+      border-radius: 0;
+      box-shadow: none;
+      background-color: transparent;
+      /* border-radius: 6px;
       flex-shrink: 0;
       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
-      background-color: #fff;    /* 可选：填充空白区域更美观 */
+      background-color: #fff;     */
       /* border: 2px solid #918e8e; */
     }
     /* 正文部分字体更改为 Segoe UI */
@@ -104,8 +108,10 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      max-height: 400px;
-      overflow-y: auto;
+      /* max-height: 400px;
+      overflow-y: auto; */
+      max-height: none;
+      overflow-y: visible;
       font-size: 18px; /* 调整字体大小 */
       line-height: 1.6;
     }
