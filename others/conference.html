@@ -17,39 +17,39 @@
 
     /* 导航栏样式 */
     nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 12px;
     }
 
     nav a {
-    margin: 0 20px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #000000;
-    text-decoration: none;
-    padding-bottom: 5px;
-    transition: color 0.3s;
+      margin: 0 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000000;
+      text-decoration: none;
+      padding-bottom: 5px;
+      transition: color 0.3s;
     }
 
     nav a.active {
-    color: #01497c;
-    border-bottom: 2px solid #01497c;
+      color: #01497c;
+      border-bottom: 2px solid #01497c;
     }
 
     nav a:hover {
-    color: #01497c;
-    text-decoration: none;
-    border-bottom: none;
+      color: #01497c;
+      text-decoration: none;
+      border-bottom: none;
     }
 
     .container {
@@ -135,6 +135,61 @@
       font-size: 13px;
       text-align: center;
     }
+
+    /* 时间线动画样式 */
+    .timeline-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    .timeline-container h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .timeline {
+      position: relative;
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+      padding: 20px 10px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      scroll-behavior: smooth;
+    }
+
+    .timeline::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .timeline::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    .timeline-item {
+      flex: 0 0 auto;
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-align: center;
+      min-width: 160px;
+      transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    }
+
+    .timeline-item.upcoming {
+      border-color: #01497c;
+      background: #e6f0fa;
+      font-weight: bold;
+    }
+
+    .timeline-item:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -142,6 +197,12 @@
   <div class="container">
     <h1>AI/ML/RO Conference Calendar — 2024 to Now</h1>
     <p class="subtitle">Last updated: 2025/10/22</p>
+
+    <!-- 时间线动画 -->
+    <div class="timeline-container">
+      <h2>Upcoming Conference Submission Deadline</h2>
+      <div class="timeline" id="timeline"></div>
+    </div>
 
     <div class="controls">
       <input id="search" placeholder="Filter by name (e.g. CVPR)">
@@ -164,13 +225,13 @@
   </div>
 
   <script>
-    // data
+    // 数据
     const data = {
       "2026": [
         {name:"CVPR", submit:"2025-11-13", rebuttal:"2026-01-22~2026-01-29", notify:"2026-02-20", conf:"2026-06-03~2026-06-07"},
-        {name:"ICLR", submit:"2025-09-24", rebuttal:"2025-11-11~?", notify:"2026-01-22", conf:"2026-04-23~2026-04-27"},
+        {name:"ICLR", submit:"2025-09-24", rebuttal:"2025-11-11~2025-11-27", notify:"2026-01-22", conf:"2026-04-23~2026-04-27"},
         {name:"AAAI", submit:"2025-08-01", rebuttal:"2025-10-02~2025-10-08", notify:"phase 1: 2025-09-12; final: 2025-11-03", conf:"2026-01-20~2026-01-27"},
-        {name:"ICRA", submit:"2025-09-15", rebuttal:"no", notify:"2026-01-31", conf:"2026-06-01~2026-06-05"},
+        {name:"ICRA", submit:"2025-09-15", rebuttal:"no", notify:"2026-01-31", conf:"2026-06-01~2026-06-05"}
       ],
       "2025": [
         {name:"CVPR", submit:"2024-11-15", rebuttal:"2025-01-23~2025-01-30", notify:"2025-02-26", conf:"2025-06-11~2025-06-15"},
@@ -202,13 +263,48 @@
       ]
     };
 
-    // state
+    // ---------- 时间线动画 ----------
+    const today = new Date();
+    const timelineDiv = document.getElementById('timeline');
+    const futureConfs = [];
+    for (const year of Object.keys(data).sort()) {
+      for (const conf of data[year]) {
+        if (!conf.submit) continue;
+        const submitDate = new Date(conf.submit);
+        if (submitDate >= today) {
+          futureConfs.push({
+            name: conf.name,
+            submit: conf.submit,
+            year: year
+          });
+        }
+      }
+    }
+    futureConfs.sort((a, b) => new Date(a.submit) - new Date(b.submit));
+    futureConfs.forEach(conf => {
+      const item = document.createElement('div');
+      item.className = 'timeline-item upcoming';
+      item.innerHTML = `<div>${conf.name}</div><div style="font-size:12px;color:#555;">Submit by: ${conf.submit}</div>`;
+      timelineDiv.appendChild(item);
+    });
+
+    let scrollPos = 0;
+    let scrollDirection = 1;
+    function animateTimeline() {
+      const maxScroll = timelineDiv.scrollWidth - timelineDiv.clientWidth;
+      scrollPos += scrollDirection * 0.5;
+      if (scrollPos >= maxScroll || scrollPos <= 0) scrollDirection *= -1;
+      timelineDiv.scrollLeft = scrollPos;
+      requestAnimationFrame(animateTimeline);
+    }
+    animateTimeline();
+
+    // ---------- 表格渲染 ----------
     let currentYear = '2026';
-    let currentView = 'year'; // 'year' or 'all'
+    let currentView = 'year';
     let currentSearch = '';
     let sortAsc = true;
 
-    // helpers
     function buildTable(year){
       const rows = data[year] || [];
       let html = '<table><thead><tr><th>Name</th><th>Submission</th><th>Rebuttal</th><th>Notification</th><th>Conference</th></tr></thead><tbody>';
@@ -239,31 +335,24 @@
     function renderAll(){
       currentView = 'all';
       let combined = '';
-      // show newest year first
       for(const y of Object.keys(data).sort().reverse()) combined += `<h3 style="margin-top:10px">${y}</h3>` + buildTable(y);
       tablesDiv.innerHTML = combined;
       applyFilter();
     }
 
-    // initial render
     renderYear(currentYear);
 
-    // tab clicks
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', e => {
-      // switch to single-year view and render that year (preserve search)
       renderYear(t.dataset.year);
-      // ensure viewMode select reflects this
       document.getElementById('viewMode').value = 'year';
     }));
 
-    // search input
     const searchInput = document.getElementById('search');
     searchInput.addEventListener('input', e => {
       currentSearch = e.target.value;
       applyFilter();
     });
 
-    // view mode change
     document.getElementById('viewMode').addEventListener('change', e => {
       if(e.target.value === 'all') {
         renderAll();
@@ -272,10 +361,8 @@
       }
     });
 
-    // sort button
     document.getElementById('sortSubmit').addEventListener('click', () => {
       if(currentView === 'all'){
-        // sort each year's list (toggle direction)
         for(const y of Object.keys(data)){
           data[y].sort((a,b) => {
             const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
@@ -285,7 +372,6 @@
         }
         renderAll();
       } else {
-        // single-year sort
         data[currentYear].sort((a,b) => {
           const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
           const db = b.submit ? new Date(b.submit) : new Date('2100-01-01');
@@ -296,7 +382,6 @@
       sortAsc = !sortAsc;
       document.getElementById('sortSubmit').innerText = `Sort by submission date ${sortAsc ? '↑':'↓'}`;
     });
-
   </script>
 </body>
 </html>
