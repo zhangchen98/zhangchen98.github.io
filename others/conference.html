@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Chen Zhang's Homepage — Conference Calendar</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@700;1,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #ffffff;
+      color: #222;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 导航栏样式 */
+    nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 12px;
+    }
+
+    nav a {
+    margin: 0 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+    padding-bottom: 5px;
+    transition: color 0.3s;
+    }
+
+    nav a.active {
+    color: #01497c;
+    border-bottom: 2px solid #01497c;
+    }
+
+    nav a:hover {
+    color: #01497c;
+    text-decoration: none;
+    border-bottom: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f8f8f8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      border: 1px solid #eee;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f2f5f8;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    tr:hover td {
+      background: #fafafa;
+    }
+
+    .year-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: #f0f0f0;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .tab.active {
+      background: #01497c;
+      color: #fff;
+    }
+
+    .foot {
+      margin-top: 15px;
+      color: #777;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>AI/ML Conference Calendar — 2024 to Now</h1>
+    <p class="subtitle">Last updated: 2025/10/22</p>
+
+    <div class="controls">
+      <input id="search" placeholder="Filter by name (e.g. CVPR)">
+      <select id="viewMode">
+        <option value="year">Show single year</option>
+        <option value="all">Show all years</option>
+      </select>
+      <button id="sortSubmit">Sort by submission date ↑</button>
+    </div>
+
+    <div class="year-tabs">
+      <div class="tab active" data-year="2026">2026</div>
+      <div class="tab" data-year="2025">2025</div>
+      <div class="tab" data-year="2024">2024</div>
+    </div>
+
+    <div id="tables"></div>
+
+    <div class="foot">Sort or filter to explore major conference timelines for AI and computer vision.</div>
+  </div>
+
+  <script>
+    // data
+    const data = {
+      "2026": [
+        {name:"CVPR", submit:"2025-11-13", rebuttal:"2026-01-22~2026-01-29", notify:"2026-02-20", conf:"2026-06-03~2026-06-07"},
+        {name:"ICLR", submit:"2025-09-24", rebuttal:"2025-11-11~2025-12-03", notify:"2026-01-22", conf:"2026-04-23~2026-04-27"},
+        {name:"AAAI", submit:"2025-08-01", rebuttal:"2025-10-02~2025-10-08", notify:"phase 1: 2025-09-12; final: 2025-11-03", conf:"2026-01-20~2026-01-27"}
+      ],
+      "2025": [
+        {name:"CVPR", submit:"2024-11-15", rebuttal:"2025-01-23~2025-01-30", notify:"2025-02-26", conf:"2025-06-11~2025-06-15"},
+        {name:"ICCV", submit:"2025-03-07", rebuttal:"2025-05-09~2025-05-16", notify:"2025-06-20", conf:"2025-10-19~2025-10-23"},
+        {name:"NeurIPS", submit:"2025-05-15", rebuttal:"2025-07-24~2025-08-06", notify:"2025-09-18", conf:"2025-12-02~2025-12-07"},
+        {name:"ICML", submit:"2025-01-30", rebuttal:"2025-03-25~2025-04-08", notify:"2025-05-01", conf:"2025-07-13~2025-07-19"},
+        {name:"ICLR", submit:"2024-10-01", rebuttal:"2024-11-13~2024-11-27", notify:"2025-01-22", conf:"2025-04-24~2025-04-28"},
+        {name:"AAAI", submit:"2024-08-15", rebuttal:"2024-11-04~2024-11-08", notify:"phase 1: 2024-10-14; final: 2024-12-09", conf:"2025-02-27~2025-03-04"},
+        {name:"IJCAI", submit:"2025-01-23", rebuttal:"2025-04-06~2025-04-09", notify:"phase 1: 2025-03-07; final: 2025-04-28", conf:"2025-08-16~2025-08-22"},
+        {name:"ACM MM", submit:"2025-04-11", rebuttal:"2025-06-09~2025-06-16", notify:"2025-07-04", conf:"2025-10-27~2025-10-31"}
+      ],
+      "2024": [
+        {name:"CVPR", submit:"2023-11-18", rebuttal:"2024-01-24~2024-01-31", notify:"2024-02-27", conf:"2024-06-17~2024-06-21"},
+        {name:"ECCV", submit:"2024-03-07", rebuttal:"2024-05-09~2024-05-17", notify:"2024-07-01", conf:"2024-09-29~2024-10-04"},
+        {name:"NeurIPS", submit:"2024-05-22", rebuttal:"2024-07-30~2024-08-06", notify:"2024-09-26", conf:"2024-12-09~2024-12-15"},
+        {name:"ICML", submit:"2024-02-01", rebuttal:"2024-03-20~2024-03-28", notify:"2024-05-01", conf:"2024-07-21~2024-07-27"},
+        {name:"ICLR", submit:"2023-09-28", rebuttal:"2023-11-10~2023-11-22", notify:"2024-01-15", conf:"2024-05-07~2024-05-11"},
+        {name:"AAAI", submit:"2023-08-15", rebuttal:"2023-11-02~2023-11-07", notify:"phase 1: 2023-09-27; final: 2023-12-09", conf:"2024-02-20~2024-02-27"},
+        {name:"IJCAI", submit:"2024-01-17", rebuttal:"2024-03-18~2024-03-21", notify:"phase 1: 2024-02-22; final: 2024-04-16", conf:"2024-08-03~2024-08-09"},
+        {name:"ACM MM", submit:"2024-04-12", rebuttal:"2024-06-10~2024-06-17", notify:"2024-07-15", conf:"2024-10-28~2024-11-01"}
+      ]
+    };
+
+    // state
+    let currentYear = '2026';
+    let currentView = 'year'; // 'year' or 'all'
+    let currentSearch = '';
+    let sortAsc = true;
+
+    // helpers
+    function buildTable(year){
+      const rows = data[year] || [];
+      let html = '<table><thead><tr><th>Name</th><th>Submission</th><th>Rebuttal</th><th>Notification</th><th>Conference</th></tr></thead><tbody>';
+      for(const r of rows){
+        html += `<tr><td>${r.name}</td><td>${r.submit}</td><td>${r.rebuttal}</td><td>${r.notify}</td><td>${r.conf}</td></tr>`;
+      }
+      html += '</tbody></table>';
+      return html;
+    }
+
+    const tablesDiv = document.getElementById('tables');
+
+    function applyFilter() {
+      const q = currentSearch.trim().toLowerCase();
+      document.querySelectorAll('#tables tbody tr').forEach(tr => {
+        tr.style.display = tr.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function renderYear(y){
+      currentYear = y;
+      currentView = 'year';
+      document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.year === y));
+      tablesDiv.innerHTML = buildTable(y);
+      applyFilter();
+    }
+
+    function renderAll(){
+      currentView = 'all';
+      let combined = '';
+      // show newest year first
+      for(const y of Object.keys(data).sort().reverse()) combined += `<h3 style="margin-top:10px">${y}</h3>` + buildTable(y);
+      tablesDiv.innerHTML = combined;
+      applyFilter();
+    }
+
+    // initial render
+    renderYear(currentYear);
+
+    // tab clicks
+    document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', e => {
+      // switch to single-year view and render that year (preserve search)
+      renderYear(t.dataset.year);
+      // ensure viewMode select reflects this
+      document.getElementById('viewMode').value = 'year';
+    }));
+
+    // search input
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('input', e => {
+      currentSearch = e.target.value;
+      applyFilter();
+    });
+
+    // view mode change
+    document.getElementById('viewMode').addEventListener('change', e => {
+      if(e.target.value === 'all') {
+        renderAll();
+      } else {
+        renderYear(currentYear);
+      }
+    });
+
+    // sort button
+    document.getElementById('sortSubmit').addEventListener('click', () => {
+      if(currentView === 'all'){
+        // sort each year's list (toggle direction)
+        for(const y of Object.keys(data)){
+          data[y].sort((a,b) => {
+            const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
+            const db = b.submit ? new Date(b.submit) : new Date('2100-01-01');
+            return sortAsc ? da - db : db - da;
+          });
+        }
+        renderAll();
+      } else {
+        // single-year sort
+        data[currentYear].sort((a,b) => {
+          const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
+          const db = b.submit ? new Date(b.submit) : new Date('2100-01-01');
+          return sortAsc ? da - db : db - da;
+        });
+        renderYear(currentYear);
+      }
+      sortAsc = !sortAsc;
+      document.getElementById('sortSubmit').innerText = `Sort by submission date ${sortAsc ? '↑':'↓'}`;
+    });
+
+  </script>
+</body>
+</html>
