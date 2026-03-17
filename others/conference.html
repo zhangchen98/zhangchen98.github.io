@@ -221,7 +221,11 @@
 
     <div id="tables"></div>
 
-    <div class="foot">Sort or filter to explore major conference timelines for computer vision and robotics.</div>
+    <div class="foot">
+    Sort or filter to explore major conference timelines.<br>
+    👀 Total Visits: <span id="busuanzi_value_site_pv"></span> |
+    👤 Visitors: <span id="busuanzi_value_site_uv"></span>
+</div>
   </div>
 
   <script>
@@ -238,7 +242,7 @@
         {name:"ACM MM", submit:"2026-04-01", rebuttal:"2026-05-xx~2026-06-04", notify:"2026-07-09", conf:"2026-11-10~2026-11-14", site:"Rio de Janeiro, Brazil"},
         {name:"CoRL", submit:"2026-05-28", rebuttal:"2026-08-04~2026-08-11", notify:"2026-09-04", conf:"2026-11-09~2026-11-12", site:"Austin, Texas, United States"},
         {name:"RSS", submit:"2026-01-30", rebuttal:"2026-03-27~2026-04-03", notify:"2026-04-27", conf:"2026-07-13~2026-07-17", site:"Sydney, Australia"},
-        {name:"ICRA", submit:"2025-09-15", rebuttal:"no", notify:"2026-01-31", conf:"2026-06-01~2026-06-05", site:"Vienna, Austria"}
+        {name:"ICRA", submit:"2025-09-15", rebuttal:"no", notify:"2026-01-31", conf:"2026-06-01~2026-06-05", site:"Vienna, Austria"},
         {name:"IROS", submit:"2026-03-02", rebuttal:"no", notify:"2026-06-16", conf:"2026-9-27~2026-10-01", site:"Hangzhou, Zhejiang, Pittsburgh, PA, United States"}
       ],
       "2025": [
@@ -391,5 +395,7 @@
       document.getElementById('sortSubmit').innerText = `Sort by submission date ${sortAsc ? '↑':'↓'}`;
     });
   </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
+
 </html>
