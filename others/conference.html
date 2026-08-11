@@ -318,7 +318,7 @@
     animateTimeline();
 
     // ---------- 表格渲染 ----------
-    let currentYear = '2026';
+    let currentYear = '2027';
     let currentView = 'year';
     let currentSearch = '';
     let sortAsc = true;
@@ -343,7 +343,7 @@
     }
 
     function renderYear(y){
-      currentYear = y;
+       = y;
       currentView = 'year';
       document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.year === y));
       tablesDiv.innerHTML = buildTable(y);
@@ -358,7 +358,7 @@
       applyFilter();
     }
 
-    renderYear(currentYear);
+    renderYear();
 
     document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', e => {
       renderYear(t.dataset.year);
@@ -375,7 +375,7 @@
       if(e.target.value === 'all') {
         renderAll();
       } else {
-        renderYear(currentYear);
+        renderYear();
       }
     });
 
@@ -390,12 +390,12 @@
         }
         renderAll();
       } else {
-        data[currentYear].sort((a,b) => {
+        data[].sort((a,b) => {
           const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
           const db = b.submit ? new Date(b.submit) : new Date('2100-01-01');
           return sortAsc ? da - db : db - da;
         });
-        renderYear(currentYear);
+        renderYear();
       }
       sortAsc = !sortAsc;
       document.getElementById('sortSubmit').innerText = `Sort by submission date ${sortAsc ? '↑':'↓'}`;
