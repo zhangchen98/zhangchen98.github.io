@@ -233,7 +233,7 @@
     // 数据
     const data = {
       "2027": [
-        {name:"CVPR", submit:"xxx", rebuttal:"xxx", notify:"xxx", conf:"2027-06-20~2027-06-24", site:"Seattle, Washington, United States"},
+        {name:"CVPR", submit:"", rebuttal:"", notify:"", conf:"2027-06-20~2027-06-24", site:"Seattle, Washington, United States"},
         {name:"AAAI", submit:"2026-07-28", rebuttal:"2025-10-19~2025-10-25", notify:"phase 1: 2025-09-24; final: 2025-11-30", conf:"2027-02-16~2027-02-23", site:"Montréal, Canada"},
         {name:"ICRA", submit:"2026-09-15", rebuttal:"no", notify:"-", conf:"2027-05-24~2027-05-28", site:"Seoul, South Korea"},
         {name:"ICLR", submit:"2026-09-25", rebuttal:"2026-11-05~2026-11-18", notify:"2026-12-16", conf:"2027-04-26~2027-04-30", site:" California, United States"},
@@ -328,7 +328,7 @@
       const rows = data[year] || [];
       let html = '<table><thead><tr><th>Name</th><th>Submission</th><th>Rebuttal</th><th>Notification</th><th>Conference Time</th><th>Conference Site</th></tr></thead><tbody>';
       for(const r of rows){
-        html += `<tr><td>${r.name}</td><td>${r.submit}</td><td>${r.rebuttal}</td><td>${r.notify}</td><td>${r.conf}</td><td>${r.site || '-'}</tr>`;
+        html += `<tr><td>${r.name}</td><td>${r.submit}</td><td>${r.rebuttal}</td><td>${r.notify}</td><td>${r.conf}</td><td>${r.site || '-'}</td></tr>`;
       }
       html += '</tbody></table>';
       return html;
@@ -376,7 +376,7 @@
       if(e.target.value === 'all') {
         renderAll();
       } else {
-        renderYear();
+        renderYear(currentYear);
       }
     });
 
@@ -391,12 +391,12 @@
         }
         renderAll();
       } else {
-        data[].sort((a,b) => {
+        data[currentYear].sort((a,b) => {
           const da = a.submit ? new Date(a.submit) : new Date('2100-01-01');
           const db = b.submit ? new Date(b.submit) : new Date('2100-01-01');
           return sortAsc ? da - db : db - da;
         });
-        renderYear();
+        renderYear(currentYear);
       }
       sortAsc = !sortAsc;
       document.getElementById('sortSubmit').innerText = `Sort by submission date ${sortAsc ? '↑':'↓'}`;
