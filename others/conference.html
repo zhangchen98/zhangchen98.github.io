@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>Chen Zhang's Homepage — Conference Calendar</title>
 
@@ -190,6 +191,30 @@
     .timeline-item:hover {
       transform: scale(1.05);
     }
+
+    /* Keep the desktop presentation unchanged. */
+    @media (max-width: 768px) {
+      body { padding: 16px 12px; }
+      .container { padding: 0; min-width: 0; }
+    }
+    @media (max-width: 768px) {
+      *, *::before, *::after { box-sizing: border-box; }
+      .container { margin: 16px auto; }
+      h1 { font-size: 24px; line-height: 1.3; }
+      .timeline-container { padding: 0; }
+      .timeline-container h2 { font-size: 18px; }
+      .timeline { padding: 12px 8px; overscroll-behavior-x: contain; scroll-behavior: auto; }
+      .timeline-item { min-width: 150px; max-width: 250px; overflow-wrap: anywhere; }
+      .controls { gap: 8px; }
+      .controls input { flex: 1 1 100%; width: 100%; min-width: 0; }
+      .controls select, .controls button { flex: 1 1 140px; max-width: 100%; }
+      .controls input, .controls select, .controls button { font-size: 16px; min-height: 44px; }
+      .year-tabs { flex-wrap: wrap; }
+      .tab { min-height: 44px; display: flex; align-items: center; }
+      #tables { overflow-x: auto; overscroll-behavior-x: contain; }
+      #tables table { min-width: 760px; }
+      th, td { padding: 10px 8px; line-height: 1.5; }
+    }
   </style>
 </head>
 <body>
@@ -220,7 +245,7 @@
       <div class="tab" data-year="2024">2024</div>
     </div>
 
-    <div id="tables"></div>
+    <div id="tables" tabindex="0" role="region" aria-label="Conference dates; scroll horizontally on small screens"></div>
 
     <div class="foot">
     Sort or filter to explore major conference timelines.<br>
@@ -324,16 +349,27 @@
       timelineDiv.appendChild(item);
     });
 
-     scrollPos = 0;
-     scrollDirection = 1;
+    let scrollPos = 0;
+    let scrollDirection = 1;
+    // Touch users control the timeline themselves; respect reduced motion too.
+    const manualTimeline = window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)');
+    let timelineFrame;
+    function updateTimelineMotion() {
+      cancelAnimationFrame(timelineFrame);
+      if (!manualTimeline.matches) {
+        scrollPos = timelineDiv.scrollLeft;
+        animateTimeline();
+      }
+    }
+    manualTimeline.addEventListener('change', updateTimelineMotion);
     function animateTimeline() {
       const maxScroll = timelineDiv.scrollWidth - timelineDiv.clientWidth;
       scrollPos += scrollDirection * 0.5;
       if (scrollPos >= maxScroll || scrollPos <= 0) scrollDirection *= -1;
       timelineDiv.scrollLeft = scrollPos;
-      requestAnimationFrame(animateTimeline);
+      timelineFrame = requestAnimationFrame(animateTimeline);
     }
-    animateTimeline();
+    updateTimelineMotion();
 
     // ---------- 表格渲染 ----------
     let currentYear = '2027';
